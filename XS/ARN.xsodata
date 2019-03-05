@@ -1,0 +1,3 @@
+service {
+"Common_Basis"."z_applications" as "z_applications";
+}
