@@ -1,0 +1,51 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="ARN.ARN.controller.List" xmlns="sap.m">
+    <Page showHeader="true" title="Application Portfolio" showFooter="true" showNavButton="true"  navButtonText="Back" navButtonTap="doNavBack">
+        <content>
+            <List id="polist" mode="SingleSelectMaster" width="100%" headerText="Header" footerText="" backgroundDesign="Solid" showSeparators="All" growing="true" growingThreshold="20" growingScrollToLoad="true" visible="true" itemPress="onObjectListItemPress" items="{/}">
+                <infoToolbar>
+                    <Toolbar width="100%" height="auto" design="Auto" visible="false" enabled="false">
+                        <content>
+                            <Label text="Filter" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                        </content>
+                    </Toolbar>
+                </infoToolbar>
+                <headerToolbar>
+                    <Toolbar enabled="true" visible="true" width="" design="Solid">
+                        <content>
+                            <SearchField placeholder="Search" showSearchButton="true" visible="true" width="100%" liveChange="Search"/>
+                        </content>
+                    </Toolbar>
+                </headerToolbar>
+                <items>
+                    <ObjectListItem intro="{VENDOR_DESC}" title="{PRODUCT_NAME_SHORT}" number="" numberUnit="" numberState="None" type="Active" selected="true" showMarkers="false">
+                        <attributes>
+                            <ObjectAttribute title="Product Name Caption" text="{PRODUCT_NAME_CAPTION}" active="false" visible="true"/>
+                            <ObjectAttribute title="Product Owner" text="{PRODUCT_OWNER}" active="false" visible="true"/>
+                            <ObjectAttribute title="Hosting Type" text="{HOSTINGTYPE_DESC}" active="false" visible="true"/>
+                        </attributes>
+                        <firstStatus>
+                            <ObjectStatus title="Architecture" text="{CURRENT_ARCHITECTURE}" state="None" visible="true"/>
+                        </firstStatus>
+                        <secondStatus>
+                            <ObjectStatus title="Version" text="{CURRENT_VERSION}" state="None" visible="true"/>
+                        </secondStatus>
+                    </ObjectListItem>
+                </items>
+            </List>
+        </content>
+        <footer>
+            <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                <content>
+                    <ToolbarSpacer width=""/>
+                </content>
+            </OverflowToolbar>
+        </footer>
+        <headerContent>
+		    <OverflowToolbarButton text="Plan" type="Default" icon="sap-icon://filter" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onSearchDialog"/>
+            <OverflowToolbarButton text="Plan" type="Default" icon="sap-icon://appointment" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onOverflowToolbarButtonPress"/>
+            <OverflowToolbarButton text="Add" type="Default" icon="sap-icon://add" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onAddApp"/>
+        </headerContent>
+        <subHeader/>
+        <customHeader/>
+    </Page>
+</mvc:View>

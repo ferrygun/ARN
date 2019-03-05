@@ -1,0 +1,16 @@
+{
+  "TileCollection" : [
+    {
+      "image" : "images/menu1.png",
+      "contenttext" : "Application Portfolio",
+      "subheader" : "",
+      "footer": ""
+    },
+    {
+      "image" : "images/menu3.png",
+      "contenttext" : "Contact",
+      "subheader" : "Contact Us",
+      "footer": "Contact Us"
+    }
+  ]
+}

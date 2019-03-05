@@ -1,0 +1,79 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="ARN.ARN.controller.Search" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Page showHeader="true" title="{i18n&gt;Title}" showFooter="true" showNavButton="true" navButtonText="Back" navButtonTap="NavBack" enableScrolling="true">
+        <content>
+            <form:Form width="100%" editable="true" visible="true">
+                <form:formContainers>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Target Architecture Date" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                </form:label>
+                                <form:fields>
+                                    <Label text="From" design="Standard" width="auto" required="false" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                    <DatePicker id="target_architecture_date_start" value="" width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="MM-dd-yyyy" />
+                                    <Label text="To" design="Standard" required="false" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                    <DatePicker id="target_architecture_date_end" value="" width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="MM-dd-yyyy" />
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Project" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                </form:label>
+                                <form:fields>
+                                    <Select id="project" width="auto" change="" autoAdjustWidth="true" items="{/}" selectedKey="0">
+                                        <core:Item key="{ID}" text="{PROJECT_DESC}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Category" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                </form:label>
+                                <form:fields>
+                                    <Select id="category" width="auto" change="" autoAdjustWidth="true" items="{/}" selectedKey="0">
+                                        <core:Item key="{ID}" text="{CATEGORY_DESC}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Application" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                </form:label>
+                                <form:fields>
+                                    <Select id="application" width="auto" change="" autoAdjustWidth="true" items="{/}" selectedKey="0">
+                                        <core:Item key="{APPLICATION_ID}" text="{PRODUCT_NAME_SHORT}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Product Owner" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true" />
+                                </form:label>
+                                <form:fields>
+                                    <Select id="product_owner" width="auto" change="" autoAdjustWidth="true" items="{/}" selectedKey="0">
+                                        <core:Item key="{PRODUCT_OWNER}" text="{PRODUCT_OWNER}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                    </form:FormContainer>
+                </form:formContainers>
+                <form:layout>
+                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="1" labelSpanL="4" columnsM="1" labelSpanM="2" labelSpanS="12" />
+                </form:layout>
+            </form:Form>
+        </content>
+        <footer>
+            <Bar>
+                <contentRight>
+                    <ToolbarSpacer width="" />
+                    <Button text="Search" icon="sap-icon://search" tooltip="Search" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onSearch" />
+                    <Button text="Clear" icon="sap-icon://sys-cancel" tooltip="Clear" press="onClear" />
+                </contentRight>
+            </Bar>
+        </footer>
+        <subHeader />
+        <customHeader />
+    </Page>
+</mvc:View>

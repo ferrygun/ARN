@@ -1,0 +1,44 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="ARN.ARN.controller.CapabilitiesSetting" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Page showHeader="true" title="Capabilities" showFooter="true" showNavButton="true" navButtonPress="doNavBack">
+        <content>
+            <Table id="capabilities" mode="SingleSelectMaster" selectionChange="onSelectionChange" items="{/Capability}" class="TableStyle">
+                <headerToolbar>
+                    <Toolbar>
+                        <ToolbarSpacer />
+                        <Button text="Insert Item" type="Emphasized" press="onInsert" />
+                        <Button text="Edit Item" type="Emphasized" press="onEdit" />
+                        <Button text="Save Item" type="Emphasized" press="onSave" />
+                        <Button text="Delete Item" type="Reject" press="onDelete" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Label text="Capability" />
+                    </Column>
+                    <Column>
+                        <Label text="Capability Owner" />
+                    </Column>
+                    <Column>
+                        <Label text="Status" />
+                    </Column>
+                    <Column>
+                        <Label text="Target Architecture Date" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Input value="{CAPABILITY}" editable="false" class="InputStyle" />
+                            <Input value="{CAPABILITYOWNER}" editable="false" placeholder="Last, First" class="InputStyle" />
+                            <Input value="{CAPABILITYSTATUS}" editable="false" class="InputStyle" />
+							<DatePicker id="target_architecture_date" value="{path: 'TARGET_ARCHITECTURE_DATE', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium', source: {pattern: 'yyyy/MM/dd'} }}" width="auto" editable="false" displayFormat="medium" enabled="true" visible="true" valueFormat="MM-dd-yyyy"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <headerContent />
+        <subHeader />
+        <customHeader />
+    </Page>
+</mvc:View>
