@@ -1,0 +1,515 @@
+C:\Users\gunawf01\hana_work\ZIS_00_KUMARR96\__empty__\testxsmd
+Select todoapp.applications.Application_ID FROM todoapp.applications, todoapp.capabilities Where CapabilityOwner like "%Nakkella, Rao%" And  todoapp.capabilities.Application_ID = todoapp.applications.Application_ID
+Select * From todoapp.applications, todoapp.hostingtypes Where todoapp.applications.hosting_type_id = todoapp.hostingtypes.idhostingtypes
+
+select Application_ID from "Common_Basis"."z_applications", "Common_Basis"."z_capabilities" where "Common_Basis"."z_capabilities"."CAPABILITYOWNER" like '%Nakkella, Rao%' and "Common_Basis"."z_capabilities"."APPLICATIONS_ID" = "Common_Basis"."z_applications"."APPLICATION_ID";
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+CREATE COLUMN TABLE "Common_Basis"."z_hostingtypes" ( 
+        ID VARCHAR(45), 
+        HostingType_Desc VARCHAR(255), 
+        PRIMARY KEY (ID) 
+);
+insert into "Common_Basis"."z_hostingtypes" values('CP','Cloud-PaasS');
+insert into "Common_Basis"."z_hostingtypes" values('CS','Cloud-SaasS');
+insert into "Common_Basis"."z_hostingtypes" values('EX','Extension');
+insert into "Common_Basis"."z_hostingtypes" values('OP','On-Premise');
+
+ALTER TABLE "Common_Basis"."z_hostingtypes" ADD PRIMARY KEY (ID)
+
+CREATE COLUMN TABLE "Common_Basis"."z_lineofbusiness" ( 
+        ID VARCHAR(45), 
+        LineOfBusiness_Desc VARCHAR(255), 
+        PRIMARY KEY (ID) 
+);
+insert into "Common_Basis"."z_lineofbusiness" values('AN','Analytics');
+insert into "Common_Basis"."z_lineofbusiness" values('BA','BASIS');
+insert into "Common_Basis"."z_lineofbusiness" values('CO','Commercial');
+insert into "Common_Basis"."z_lineofbusiness" values('CR','Cross');
+insert into "Common_Basis"."z_lineofbusiness" values('CS','Cyber Security');
+insert into "Common_Basis"."z_lineofbusiness" values('FI','Finance');
+insert into "Common_Basis"."z_lineofbusiness" values('MG','Manufacturing');
+insert into "Common_Basis"."z_lineofbusiness" values('PL','Planning');
+insert into "Common_Basis"."z_lineofbusiness" values('PR','Procurement');
+insert into "Common_Basis"."z_lineofbusiness" values('SE','Security');
+
+CREATE COLUMN TABLE "Common_Basis"."z_category" ( 
+        ID VARCHAR(45), 
+        Category_Desc VARCHAR(255), 
+        PRIMARY KEY (ID) 
+);
+insert into "Common_Basis"."z_category" values('A','Analytics');
+insert into "Common_Basis"."z_category" values('B','Ancillary Tools');
+insert into "Common_Basis"."z_category" values('C','Digital Core');
+insert into "Common_Basis"."z_category" values('D','Integration');
+insert into "Common_Basis"."z_category" values('E','User Experience');
+
+delete from "Common_Basis"."z_applications" where APPLICATION_ID = 'MDG';
+update "Common_Basis"."z_applications" set Executive_Summary = 'This is the executive summary' where APPLICATION_ID = 'MDG'; 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Create Procedure "Common_Basis"."Proc_update"(IN X Varchar(255), IN Y Varchar(255))
+LANGUAGE SQLSCRIPT AS
+BEGIN
+update "Common_Basis"."z_applications" set Executive_Summary = :X where APPLICATION_ID = 'MDG'; 
+update "Common_Basis"."z_event" set EVENT_DESC = :Y where APPLICATIONS_ID = 'MDG'; 
+END;
+drop procedure "Common_Basis"."Proc_update"
+
+Create Procedure "Common_Basis"."ARNUpdate"(IN appid Varchar(45), IN pns Varchar(255), IN pnl Varchar(255), IN pnc Varchar(255), IN cid Varchar(45), IN lobid Varchar(45), IN htid Varchar(45), IN es Varchar(255), IN tuc Varchar(255), IN po Varchar(255), IN vid Varchar(45), IN ca Varchar(255), IN cv Varchar(255), IN eod Date, IN ta Varchar(255), IN tv Varchar(255), IN not Varchar(255), IN af Varchar(255))
+LANGUAGE SQLSCRIPT AS
+BEGIN
+update "Common_Basis"."z_applications" set 
+Product_Name_Short =:pns,
+Product_Name_Long=:pnl,
+Product_Name_Caption=:pnl,
+Category_ID=:cid,
+Line_of_Business_ID=:lobid,
+Hosting_Type_ID=:htid,
+Executive_Summary=:es,
+Target_Upgrade_Cycle=:tuc,
+Product_Owner=:po,
+Vendor_ID=:vid,
+Current_Architecture=:ca,
+Current_Version=:cv,
+Current_Version_End_of_Maintenance=:eod,
+Target_Architecture=:ta,
+Target_Version=:tv,
+Notes=:not,
+Application_Function=:af
+where APPLICATION_ID = :appid;
+END;
+
+Create Procedure "Common_Basis"."ARNAdd"(
+IN appid Varchar(45), 
+IN pns Varchar(255), 
+IN pnc Varchar(255), 
+IN pnl Varchar(255), 
+IN vid Varchar(45), 
+IN po Varchar(255),
+IN htid Varchar(45),
+IN cid Varchar(45),
+IN lobid Varchar(45), 
+IN ca Varchar(255), 
+IN cv Varchar(255), 
+IN ta Varchar(255),
+IN tv Varchar(255), 
+IN not Varchar(255), 
+IN lard Date, 
+IN cveom Date, 
+IN tuc Varchar(255), 
+IN es Varchar(255), 
+IN af Varchar(255)) 
+
+LANGUAGE SQLSCRIPT AS
+BEGIN
+Insert Into "Common_Basis"."z_applications" (
+Application_ID,
+Product_Name_Short, 
+Product_Name_Caption,
+Product_Name_Long,
+Vendor_ID,
+Product_Owner,
+Hosting_Type_ID,
+Category_ID,
+Line_of_Business_ID,
+Current_Architecture,
+Current_Version,
+Target_Architecture,
+Target_Version,
+Notes,
+Last_Architecture_Review_Date,
+Current_Version_End_of_Maintenance,
+Target_Upgrade_Cycle,
+Executive_Summary,
+Application_Function)
+
+Values (
+:appid, 
+:pns, 
+:pnc, 
+:pnl, 
+:vid, 
+:po,
+:htid,
+:cid,
+:lobid, 
+:ca, 
+:cv, 
+:ta,
+:tv, 
+:not, 
+:lard, 
+:cveom, 
+:tuc, 
+:es, 
+:af);
+END;
+
+CREATE TYPE tt_test AS TABLE (Capability  VARCHAR(255), CapabilityOwner  VARCHAR(255), CapabilityStatus  VARCHAR(255), Target_Architecture_Date DATE, Applications_ID VARCHAR(255))
+CREATE PROCEDURE "Common_Basis"."capability"(IN X varchar(255), IN Y tt_test) 
+LANGUAGE SQLSCRIPT AS
+BEGIN
+delete from "Common_Basis"."z_capabilities" where APPLICATIONS_ID = :X;
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) SELECT * FROM :Y;
+END;
+
+CREATE TYPE rr_test AS TABLE (EventType  VARCHAR(255), StartDate DATE, EndDate DATE, Event_Desc VARCHAR(255), Applications_ID VARCHAR(45))
+CREATE PROCEDURE "Common_Basis"."event"(IN X varchar(255), IN Y rr_test) 
+LANGUAGE SQLSCRIPT AS
+BEGIN
+delete from "Common_Basis"."z_event" where APPLICATIONS_ID = :X;
+insert into "Common_Basis"."z_event" (eventtype, startdate, enddate, event_desc, applications_id) SELECT * FROM :Y;
+END;
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+UPDATE  "Common_Basis"."z_applications", "Common_Basis"."z_event"
+SET Executive_Summary = 'Hello', EVENT_DESC = 'Hi' 
+FROM "Common_Basis"."z_applications", "Common_Basis"."z_event"
+WHERE "Common_Basis"."z_applications"."APPLICATION_ID" = 'MDG'
+AND "Common_Basis"."z_event"."APPLICATIONS_ID" = 'MDG'
+
+
+CREATE COLUMN TABLE "Common_Basis"."z_vendor" (
+  ID VARCHAR(45),
+  Vendor_Desc VARCHAR(255), 
+  PRIMARY KEY (ID),
+  UNIQUE (ID)
+);
+insert into "Common_Basis"."z_vendor" values('SAP','SAP');
+insert into "Common_Basis"."z_vendor" values('ANC','Ancile');
+insert into "Common_Basis"."z_vendor" values('BOA','BackOffice Associates');
+insert into "Common_Basis"."z_vendor" values('COA','Computer Associates');
+insert into "Common_Basis"."z_vendor" values('HPE','HP');
+insert into "Common_Basis"."z_vendor" values('MUL','Mulesoft');
+insert into "Common_Basis"."z_vendor" values('ONA','Onapsis');
+insert into "Common_Basis"."z_vendor" values('ORA','Oracle');
+insert into "Common_Basis"."z_vendor" values('PAY','Paymetrics');
+insert into "Common_Basis"."z_vendor" values('PFE','Pfizer');
+insert into "Common_Basis"."z_vendor" values('SAG','Software AG');
+insert into "Common_Basis"."z_vendor" values('TER','Termasoft');
+insert into "Common_Basis"."z_vendor" values('TUL','Tulia');
+insert into "Common_Basis"."z_vendor" values('VER','Vertex');
+
+
+CREATE COLUMN TABLE "Common_Basis"."z_applications" (
+  Application_ID VARCHAR(45),
+  Product_Name_Short VARCHAR(255), 
+  Product_Name_Caption VARCHAR(255),
+  Product_Name_Long VARCHAR(255),
+  Vendor_ID VARCHAR(45),
+  Product_Owner VARCHAR(255),
+  Hosting_Type_ID VARCHAR(45),
+  Category_ID VARCHAR(45),
+  Line_of_Business_ID VARCHAR(45),
+  Current_Architecture VARCHAR(255),
+  Current_Version VARCHAR(255),
+  Target_Architecture VARCHAR(255),
+  Target_Version VARCHAR(255),
+  Notes VARCHAR(255),
+  Last_Architecture_Review_Date DATE,
+  Current_Version_End_of_Maintenance DATE,
+  Target_Upgrade_Cycle VARCHAR(255),
+  Executive_Summary VARCHAR(255),
+  Application_Function VARCHAR(255),
+  PRIMARY KEY (Application_ID),
+  UNIQUE (Application_ID),
+  FOREIGN KEY(Vendor_ID) REFERENCES "Common_Basis"."z_vendor" ("ID") ON UPDATE CASCADE,
+  FOREIGN KEY(Category_ID) REFERENCES "Common_Basis"."z_category" ("ID") ON UPDATE CASCADE,
+  FOREIGN KEY(Hosting_Type_ID) REFERENCES "Common_Basis"."z_hostingtypes" ("ID") ON UPDATE CASCADE,
+  FOREIGN KEY(Line_of_Business_ID) REFERENCES "Common_Basis"."z_lineofbusiness" ("ID") ON UPDATE CASCADE
+);
+
+insert into "Common_Basis"."z_applications" values('AC', 'Analytics Cloud', '', '', 'SAP', 'Mike Lutschaunig', 'CS', 'A', 'AN', 'Analytics Cloud', '', 'Analytics Cloud', '', '', '2017-01-01', '2019-12-31', 'Bi-Annual', '', '');
+insert into "Common_Basis"."z_applications" values('ADSI', 'ADSI','Manifest Documentation','ADSI','SAP','','OP','D','CO','','','','','','2017-01-01','2019-12-31','','','');
+insert into "Common_Basis"."z_applications" values('ALM', 'ALM', 'Testing & Validation','HP ALM','HPE','','OP','B','CR','','','','','','2017-01-01','2019-12-31','','','');
+insert into "Common_Basis"."z_applications" values('MDG','MDG','Master Data Hub','SAP MDG 8.0','SAP','Rich Gross','OP','C','MG','Suite on HANA','8','MDG S/4 HANA','SAP MDG on S/4 HANA 1809','Upgrade Required for S/4','2017-01-01','2019-12-31','Annual','','');
+
+insert into "Common_Basis"."z_applications" values('ARIBA1,Ariba,Indirect Procurement,ARIBA,SAP,Donna Christou,CS,C,PR,Ariba Cloud,,Ariba BOD,,,2017-01-01,2019-12-31,Bi-Annual,,
+
+insert into "Common_Basis"."z_applications" values('ARIBA2,ARIBA Buyer Direct,Procurement,SAP ARIBA Buyer Direct,SAP,Donna Christou,OP,C,PR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('ARIS,ARIS,Business Process Mgmt,SoftwareAG ARIS,Software AG,,CS,B,CR,,10.3,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('AUTOSYS,Autosys,Batch Job Mgmt,CA Autosys,Computer Associates,,OP,B,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('BART,Bartender,Label Templating,Bartender,,,OP,B,CO,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('BI,BI Portal,BW Web Reporting,SAP BI Portal 7.31,SAP,Jane VonKirchbach,OP,C,CR,,7.31,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('BOBJ,BOBJ,Analytics Reporting,SAP BOBJ 4.2,SAP,Jane VonKirchbach,OP,E,AN,JAVA,4.2,Retire,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('BODS','BODS','Data Services, Master Data Conversion','SAP BODS 4.2','SAP','David Langer','OP','D','CR','','4.2','','','', '2017-01-01','2019-12-31','','','');
+
+insert into "Common_Basis"."z_applications" values('BW,BW,,,SAP,Jane VonKirchbach,OP,C,AN,BW on HANA,7.5 SP2,BI on HANA,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('CONCUR,Concur,,,SAP,,CS,C,FI,Concur Cloud,,Concur Cloud,,,2017-01-01,2019-12-31,Bi-Annual,,
+insert into "Common_Basis"."z_applications" values('CONSOLE,Console,RF Management,SAP Console 7.1,SAP,,OP,E,CO,,7.1,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('CRANSOFT,Cransoft,Master Data Loading,Cransoft by BackOffice,BackOffice Associates,David Langer,OP,B,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('DB,Digital Boardroom,,,SAP,Mike Lutschaunig,CS,A,AN,Analytics Cloud,,Digital Boardroom,,,2017-01-01,2019-12-31,Bi-Annual,,
+insert into "Common_Basis"."z_applications" values('ECC,ECC,Core Transactional System,SAP ECC 6.0,SAP,Mike Lutschaunig,OP,C,ER,Suite on AnyDB,ERP6 EHP6,S/4 HANA,S/4 HANA 2009,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('EINVOICE,eInvoicing,,,Tulia,Rao Nakkella,OP,B,FI,,OB10,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('EP,Enterprise Portal,Web Browser,SAP Enterprise Portal 7.0,SAP,Jason Cava,OP,C,CR,JAVA,7.1,Retire,,End of Life by Y/E 2025,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('ETD,ETD,Enterprise Threat Detection,SAP ETD,SAP,Joel Lebo,OP,B,CS,HANA 2.0,1.0 SP6,HANA 2.0,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('FIM,FIM,Fin. Info. Mgmt for OTP,SAP FIM 10.0,SAP,,OP,B,FI,,10,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('GENTRAN,Serling Gentran,Integration Mgmt,IBM Serling Gentran,,,OP,D,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('GRC,GRC,Gov., Risk & Compliance,SAP GRC 10.0,SAP,Rao Nakkella; Jason Cava,OP,C,FI,Suite on AnyDB,10,S/4 HANA,,Upgrade Required for S/4,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('GTS,GTS,Import/Export Mgmt,SAP GTS 10.0,SAP,Ray Paoli,OP,C,CO,Suite on AnyDB,10,GTS S/4 HANA,11,Upgrade Required for S/4,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('GW,Gateway,,,SAP,Joel Lebo,OP,B,CR,Suite on AnyDB,7.4,S/4 HANA,,Upgrade Required for S/4,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('HYBRIS,Hybris,Customer Engagement,SAP Hybris 6.7.3,SAP,Jason Cava,CS,C,CO,Hybris Cloud,6.7.3,Hybris Cloud,,,2017-01-01,2019-12-31,Bi-Annual,,
+insert into "Common_Basis"."z_applications" values('IB,Integration Bus,Integration Mgmt,IBM Integration Bus 10.0.0.10,,,OP,D,CR,,10.0.0.10,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('IBP,IBP,Planning S&OP,SAP IBP 1808,SAP,Bob Miller,CS,C,PL,IBP Cloud,1811,IBP Cloud,,,2017-01-01,2019-12-31,Bi-Annual,,
+insert into "Common_Basis"."z_applications" values('IDM,IDM,Identity Management,SAP IDM 8.0,SAP,Nik Patel,OP,B,SE,JAVA,8.2,,8.2,Replaces CUA,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('IERP,iERP,HANA Sidecar,SAP iERP 2.0,SAP,Joseph Caruso,OP,C,CR,,2,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('IS,Information Steward,,,SAP,David Langer; Karla Maguire,OP,C,CR,,4.1 SP10,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('JAM,JAM for IBP,,,SAP,Bob Miller,CS,C,CR,IBP Cloud,1811,,,,2017-01-01,2019-12-31,Bi-Annual,,
+insert into "Common_Basis"."z_applications" values('JAWS,JAWS,Batch Job Analytics,Termasoft JAWS,Termasoft,,OP,B,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('KNOA,KNOA,,,SAP,,OP,E,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('LRS,LRS,Output/Printer Mgmt,LRS,,,OP,B,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('MDG','MDG','Master Data Hub','SAP MDG 8.0','SAP','Rich Gross','OP','C','MG','Suite on HANA','8','MDG S/4 HANA','SAP MDG on S/4 HANA 1809','Upgrade Required for S/4','2017-01-01','2019-12-31','Annual','','');
+insert into "Common_Basis"."z_applications" values('MULESOFT,MuleSoft,Integration Mgmt,MuleSoft,Mulesoft,,OP,D,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('NLS,NLS,Near Line Storage for ERP BI,SAP NLS,SAP,Jane VonKirchbach,OP,B,AN,,16.1,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('OEGATE,Oracle eGate,Integration Mgmt,Oracle eGate,Oracle,,OP,D,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('ONAPSIS,Onapsis,,,Onapsis,Joel Lebo,OP,B,CS,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('OPENTEXT,OpenText,Imaging & Archiving,OpenText,SAP,Leslie Meadows,EX,C,CR,On Prem Exension,16,On Prem Exension,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('PCM,PCM,Operational Transfer Pricing,SAP PCM 10.0,SAP,Jim Schwaninger,OP,C,FI,JAVA,,Retire,,Retiring,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('PI,PI,Integration Mgmt,SAP PI 7.1 EHP1,SAP,Bill Waenke,OP,D,CR,Suite on AnyDB,7.1 EHP1,PI/PO,,Upgrade Required for S/4,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('PPM,PPM,Project & Portfolio Management,SAP PPM 6.1,SAP,Angie Walsh,OP,C,CR,Suite on AnyDB,6.1,PPM S/4 HANA,,PPM is native in S/4,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('PRIME,PRIME,Customer Engagement,PRIME,Pfizer,Jason Cava,OP,C,CO,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('PX,Paymetrics Xipay,Credit Card Processing,Paymetrics Xipay,Paymetrics,,OP,B,FI,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('READSOFT,Readsoft,e-Invoicing Mgmt,ReadSoft,SAP,Raj Hase,EX,C,FI,ECC Extension,5.8 SP1,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('RIGHTFAX,RightFax,Fax Output,RightFax,,,OP,B,FI,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SAPGUI,SAP GUI,,,SAP,,OP,E,CR,,7.3,,7.5,Upgrade Required for S/4,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SAPUIM,SAP UI Masking,,,SAP,David Langer,OP,B,CR,Suite Extension,,Suite Extension,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SC,Service Center,Ticket, Requests, Change Mgmt,HP Service Center,HP,,OP,B,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SCM,SCM/APO,,,SAP,Bob Miller,OP,C,PL,Suite on AnyDB,7,IBP Cloud,,End of Life by Y/E 2025,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SCP,SCP,,,SAP,Drew Nurenberg,CP,C,CR,Neo,Neo,Cloud Foundry,,,2017-01-01,2019-12-31,Quarterly,,
+insert into "Common_Basis"."z_applications" values('SDS,SDS,,,SAP,Joel Lebo,OP,B,CS,HANA 2.0,1.0 SP6,HANA 2.0,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SEAL,Seal Systems,Packaging Documentation,Seal Systems,,,OP,B,CO,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SF,Success Factors,,,SAP,Steve Freed,CS,B,MG,Success Factors Cloud,,Success Factors Cloud,,,2017-01-01,2019-12-31,Bi-Annual,,
+insert into "Common_Basis"."z_applications" values('SLAN,SLAN,SAP Lease Accounting by Nakisa,SLAN 4.1,SAP,Raj Hase,OP,C,FI,On Prem Exension,4.1,On Prem Exension,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SLD,SLD,System Administration,SAP SLD 7.1,SAP,,OP,B,CR,,7.1,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SLT,SLT,,,SAP,Scott Groth,OP,D,BA,HANA,,HANA 2.0,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SMP3,SMP3,,,SAP,Steve Meisner,OP,B,CR,JAVA,3,Retire,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('SOLMAN,Solution Manager,System Administration,SAP Solution Manager 7.2,SAP,Joel Lebo,OP,B,CR,Suite on HANA,7.2,S/4 HANA,,,2017-01-01,2019-12-31,Annual,,
+insert into "Common_Basis"."z_applications" values('TDF,TDF,,,SAP,Raj Hase,OP,B,FI,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('TREX,TREX,SAP Search Engine,SAP TREX 7.1,SAP,,OP,B,CR,,7.1,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('UPERFORM,uPerform,eLearning,SAP uPerform,Ancile,,OP,E,CR,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('VERTEX,Vertex,Sales & Use Tax Calculator,Vertex,Vertex,Raj Hase,OP,C,FI,,6,,7,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('VVP,Vocollect Voice Pick,Dist. Voice Picking,Vocollect Voice Pick,,,OP,B,CO,,,,,,2017-01-01,2019-12-31,,,
+insert into "Common_Basis"."z_applications" values('WAS,WAS,Web Application Server,SAP WAS 7.0,SAP,Matt Smith,OP,B,CR,Suite on AnyDB,6.4,Retire,,End of Life,2017-01-01,2019-12-31,,,
+
+CREATE COLUMN TABLE "Common_Basis"."z_event" ( 
+	ID BIGINT NOT NULL primary key GENERATED BY DEFAULT AS IDENTITY,
+	EventType VARCHAR(255),
+	StartDate DATE,
+	EndDate DATE,
+	Event_Desc VARCHAR(255), 
+	Applications_ID VARCHAR(45),
+	FOREIGN KEY(Applications_ID) REFERENCES "Common_Basis"."z_applications" ("APPLICATION_ID") 
+);
+insert into "Common_Basis"."z_event" (eventtype, startdate, enddate, event_desc, applications_id) values('Upgrade','2019-04-30','2019-11-28','Upgrade to MDG 9.2','MDG');
+insert into "Common_Basis"."z_event" (eventtype, startdate, enddate, event_desc, applications_id) values('Upgrade','2019-04-30','2020-11-30','Upgrade to S/4 HANA','MDG');
+
+
+CREATE COLUMN TABLE "Common_Basis"."z_capabilities" ( 
+	ID BIGINT NOT NULL GENERATED BY DEFAULT AS IDENTITY,
+	Capability  VARCHAR(255),
+	CapabilityOwner  VARCHAR(255),
+	CapabilityStatus  VARCHAR(255),
+	Target_Architecture_Date DATE,
+	Applications_ID VARCHAR(255),
+	PRIMARY KEY (Capability),
+	FOREIGN KEY(Applications_ID) REFERENCES "Common_Basis"."z_applications" ("APPLICATION_ID") 
+);
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) values('MDG-F','Nakkella, Rao','Active','2019-12-31', 'MDG');
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) values('MDG-M','Walsh, Angie','Active','2019-12-31', 'MDG');
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) values('MDG-S','Jajodia, Amit','Active','2019-12-31', 'MDG');
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) values('MDG-C','Inactive','Inactive','2019-12-31', 'MDG');
+
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) values('ALM','Djaja, Ferry','Active','2019-12-31', 'ALM');
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) values('FD-F','Djaja, Ferry','Active','2019-12-31', 'FD');
+
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id)
+values
+('DEL-A','Djaja, Ferry','Active','2019-12-31', 'DEL'),
+('DEL-B','Djaja, Ferry','Active','2019-12-31', 'DEL'),
+('DEL-C','Djaja, Ferry','Active','2019-12-31', 'DEL');
+
+
+CREATE COLUMN TABLE "Common_Basis"."z_projects" ( 
+	ID VARCHAR(45),
+	Project_Desc  VARCHAR(255),
+	Applications_ID VARCHAR(45),
+	PRIMARY KEY (Applications_ID),
+	FOREIGN KEY(Applications_ID) REFERENCES "Common_Basis"."z_applications" ("APPLICATION_ID") 
+);
+insert into "Common_Basis"."z_projects" (id, project_desc, applications_id) values('A','S/4 Hana','MDG');
+insert into "Common_Basis"."z_projects" (id, project_desc, applications_id) values('A','S/4 Hana','ALM');
+insert into "Common_Basis"."z_projects" (id, project_desc, applications_id) values('B','Manifest','ADSI');
+
+insert into "Common_Basis"."z_projects" (id, project_desc, applications_id) values('A','S/4 Hana','FD');
+insert into "Common_Basis"."z_projects" (id, project_desc, applications_id) values('A','S/4 Hana','DEL');
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+var oModel = new sap.ui.model.json.JSONModel();
+			var sHeaders = {
+				"Authorization":"User hWP72wZKEKHXngnVT8WWsEzYzo7/ARp7o93NEflVQwo=, Organization f589b65c85a32fc5c3b35ec8c882f063, Element JyVJytU8Uf3ZmdxJkIb/knXd7nuhZ1w2hcaDTbAEjhw=",
+				"Content-Type": "application/json"
+			};
+
+			oModel.loadData("/elements/api-v2/", '{"message": {"content":"i want to buy a rose","type":"text"}, "conversation_id": "CONVERSATION_ID"}', true, "POST", null, false, sHeaders);
+			oModel.attachRequestCompleted(function() {
+		        console.log(oModel.getData());
+		    });
+		    
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+{
+     "exposed" : true,                    
+     "authentication" :                                            
+            {
+               "method": "Form"   
+            },
+  
+     "cache_control" : "must-revalidate", 
+     "cors" :                      
+            {
+             "enabled" : false
+            },                      
+     "enable_etags" : false,
+     "force_ssl" : false,     
+     "prevent_xsrf" : true
+}
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Main Page:
+Select DISTINCT "APPLICATION_ID", "PRODUCT_NAME_SHORT", "PRODUCT_NAME_CAPTION", "VENDOR_DESC", "PRODUCT_OWNER", "HOSTINGTYPE_DESC", "CURRENT_ARCHITECTURE", "CURRENT_VERSION", "PROJECT_DESC", "TARGET_ARCHITECTURE_DATE", "CATEGORY_DESC"
+From  "Common_Basis"."z_applications", "Common_Basis"."z_hostingtypes", "Common_Basis"."z_vendor", "Common_Basis"."z_projects", "Common_Basis"."z_capabilities", "Common_Basis"."z_category"
+Where "Common_Basis"."z_applications"."HOSTING_TYPE_ID" = "Common_Basis"."z_hostingtypes"."ID" 
+And "Common_Basis"."z_applications"."VENDOR_ID" = "Common_Basis"."z_vendor"."ID"
+And  "Common_Basis"."z_applications"."APPLICATION_ID" = "Common_Basis"."z_projects"."APPLICATIONS_ID"
+And  "Common_Basis"."z_applications"."APPLICATION_ID" = "Common_Basis"."z_capabilities"."APPLICATIONS_ID"
+And  "Common_Basis"."z_applications"."CATEGORY_ID" = "Common_Basis"."z_category"."ID"
+And "Common_Basis"."z_projects"."ID" = 'A'
+And "Common_Basis"."z_applications"."APPLICATION_ID" = 'ALM'
+And "Common_Basis"."z_category"."ID" = 'B'
+And "Common_Basis"."z_applications"."PRODUCT_OWNER" = 'John, Doe'
+AND "Common_Basis"."z_capabilities"."TARGET_ARCHITECTURE_DATE" between '2019-02-12' and '2020-05-05'
+
+var query = "Select \"APPLICATION_ID\", " +
+	            "\"PRODUCT_NAME_SHORT\", " +
+	            "\"PRODUCT_NAME_CAPTION\", " +
+	            "\"VENDOR_DESC\", " +
+	            "\"PRODUCT_OWNER\", " +
+	            "\"HOSTINGTYPE_DESC\", " +
+	            "\"CURRENT_ARCHITECTURE\", " +
+	            "\"CURRENT_VERSION\" " +
+	            "From  \"Common_Basis\".\"z_applications\", \"Common_Basis\".\"z_hostingtypes\", \"Common_Basis\".\"z_vendor\",  \"Common_Basis\".\"z_projects\", \"Common_Basis\".\"z_capabilities\", \"Common_Basis\".\"z_category\"  " +
+	            "Where \"Common_Basis\".\"z_applications\".\"HOSTING_TYPE_ID\" = \"Common_Basis\".\"z_hostingtypes\".\"ID\" " + 
+	            "And \"Common_Basis\".\"z_applications\".\"VENDOR_ID\" = \"Common_Basis\".\"z_vendor\".\"ID\" " +
+		    "And \"Common_Basis\".\"z_applications\"."APPLICATION_ID\" = \"Common_Basis\".\"z_projects\".\"APPLICATIONS_ID\" " +
+		    "And \"Common_Basis\".\"z_applications\"."APPLICATION_ID\" = \"Common_Basis\".\"z_capabilities\".\"APPLICATIONS_ID\" " +
+	            "And \"Common_Basis\".\"z_applications\"."CATEGORY_ID\" = \"Common_Basis\".\"z_category\".\"ID\" " +
+	            "And \"Common_Basis\".\"z_projects\".\"ID\" = 'A' " +
+                    "And \"Common_Basis\".\"z_applications\".\"APPLICATION_ID\" = 'ALM' " +
+                    "And \"Common_Basis\".\"z_applications\".\"PRODUCT_OWNER\" = 'John, Doe' " +
+                    "And \"Common_Basis\".\"z_capabilities\".\"TARGET_ARCHITECTURE_DATE\" Between '2019-11-30' and '2020-01-31' ";
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Detail Page:
+Select  "APPLICATION_ID", "CAPABILITY", "CAPABILITYOWNER", "CAPABILITYSTATUS", "EVENTTYPE", "STARTDATE", "ENDDATE", "EVENT_DESC"
+From "Common_Basis"."z_applications", "Common_Basis"."z_capabilities", "Common_Basis"."z_event" 
+Where "Common_Basis"."z_applications"."APPLICATION_ID" = "Common_Basis"."z_capabilities"."APPLICATIONS_ID" 
+And "Common_Basis"."z_applications"."APPLICATION_ID" = "Common_Basis"."z_event"."APPLICATIONS_ID" 
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+Select "APPLICATION_ID", "PRODUCT_NAME_SHORT", "PRODUCT_NAME_CAPTION", "VENDOR_DESC", "PRODUCT_OWNER", "HOSTINGTYPE_DESC", "CURRENT_ARCHITECTURE", "CURRENT_VERSION" 
+From  "Common_Basis"."z_applications", "Common_Basis"."z_hostingtypes", "Common_Basis"."z_vendor" 
+Where "Common_Basis"."z_applications"."HOSTING_TYPE_ID" = "Common_Basis"."z_hostingtypes"."ID" 
+And "Common_Basis"."z_applications"."VENDOR_ID" = "Common_Basis"."z_vendor"."ID"
+And  "Common_Basis"."z_applications"."VENDOR_ID" = 'HPE'
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+List query:
+Select Distinct "APPLICATION_ID", "PRODUCT_NAME_SHORT", "PRODUCT_NAME_CAPTION", "VENDOR_DESC", "PRODUCT_OWNER","HOSTINGTYPE_DESC", "CURRENT_ARCHITECTURE", "CURRENT_VERSION" 
+From  "Common_Basis"."z_applications", "Common_Basis"."z_hostingtypes", "Common_Basis"."z_vendor", "Common_Basis"."z_projects", "Common_Basis"."z_capabilities", "Common_Basis"."z_category"  
+Where "Common_Basis"."z_applications"."HOSTING_TYPE_ID" = "Common_Basis"."z_hostingtypes"."ID"  
+And "Common_Basis"."z_applications"."VENDOR_ID" = "Common_Basis"."z_vendor"."ID" 
+And "Common_Basis"."z_applications"."APPLICATION_ID" = "Common_Basis"."z_projects"."APPLICATIONS_ID" 
+And "Common_Basis"."z_applications"."CATEGORY_ID" = "Common_Basis"."z_category"."ID" 
+
+
+Select "APPLICATION_ID", "PRODUCT_NAME_SHORT", "PRODUCT_NAME_CAPTION", "PRODUCT_NAME_LONG", "VENDOR_DESC", "VENDOR_ID", "PRODUCT_OWNER", "HOSTINGTYPE_DESC", 
+"HOSTING_TYPE_ID", "CATEGORY_DESC", "CATEGORY_ID", "LINEOFBUSINESS_DESC", "Common_Basis"."z_lineofbusiness"."ID", "CURRENT_ARCHITECTURE", "CURRENT_VERSION", "TARGET_ARCHITECTURE", 
+"TARGET_VERSION", "NOTES", "LAST_ARCHITECTURE_REVIEW_DATE", "CURRENT_VERSION_END_OF_MAINTENANCE", "EXECUTIVE_SUMMARY" 
+From "Common_Basis"."z_applications", "Common_Basis"."z_hostingtypes", "Common_Basis"."z_vendor", "Common_Basis"."z_category", "Common_Basis"."z_lineofbusiness" 
+Where "Common_Basis"."z_applications"."HOSTING_TYPE_ID" = "Common_Basis"."z_hostingtypes"."ID" 
+And "Common_Basis"."z_applications"."VENDOR_ID" = "Common_Basis"."z_vendor"."ID" 
+And "Common_Basis"."z_applications"."CATEGORY_ID" = "Common_Basis"."z_category"."ID" 
+And "Common_Basis"."z_applications"."LINE_OF_BUSINESS_ID" = "Common_Basis"."z_lineofbusiness"."ID" 
+And "Common_Basis"."z_applications"."APPLICATION_ID" = 'MDG'
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+https://szish1d.pfizer.com:4300/testxsmd/ARNService.xsjs?q=8&pns=a&pnl=b&pnc=d&cid=c&lobid=d&htid=e&es=f&po=g&vid=h&ca=i&cv=j&eod=k&ta=l&tv=m&not=n
+pns + '|' + pnl + '|' + pnc + '|' + cid + '|' + lob + '|' + htid + '|' + es + '|' + po + '|' + vid + '|' +ca + '|' + cv + '|' + eod + '|' + ta + '|' + tv + '|' + not
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+    {
+      "exposed": true,
+      "authentication": {
+       "method": "Form"
+      },
+      "cache_control": "must-revalidate",
+      "cors": {
+       "enabled": true,
+       "allowMethods": [
+       "GET",
+       "POST",
+       "HEAD",
+       "OPTIONS"
+       ],
+       "allowOrigin": ["*"],
+       "maxAge": "3600"
+      },
+      "enable_etags": false,
+      "force_ssl": false,
+      "prevent_xsrf": false
+    }
+https://archive.sap.com/discussions/thread/3804252
+https://github.com/jenizar/SAP_HANA_XS_DB_SAPUI5_CRUD
+-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+https://archive.sap.com/discussions/thread/3376895
+CREATE LOCAL TEMPORARY TABLE #local_test_table_1(Capability  VARCHAR(255), CapabilityOwner  VARCHAR(255), CapabilityStatus  VARCHAR(255), Target_Architecture_Date DATE, Applications_ID VARCHAR(255))
+
+insert into #local_test_table_1 values('FD-B','Inactive','Inactive','2019-12-31', 'FD');
+insert into #local_test_table_1 values('FD-C','Inactive','Inactive','2019-12-31', 'FD');
+
+select * from #local_test_table_1;
+
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) 
+select * from #local_test_table_1;
+
+delete from "Common_Basis"."z_capabilities" where Capability = 'FD-B';
+delete from "Common_Basis"."z_capabilities" where Capability = 'FD-C';
+
+
+onesql("CREATE PROCEDURE capability(\n" + 
+       "  IN X varchar(255),\n" + 
+       "  IN Y tt_test,\n" + 
+       "  ) LANGUAGE SQLSCRIPT AS\n" + 
+       "BEGIN\n" + 
+       " delete from "Common_Basis"."z_capabilities" where APPLICATIONS_ID = :X;\n" + 
+       " insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) SELECT * FROM :Y;\n" + 
+       "END;");
+
+'''''''  
+DROP TYPE tt_test
+DROP PROCEDURE capability
+
+CREATE TYPE tt_test AS TABLE (Capability  VARCHAR(255), CapabilityOwner  VARCHAR(255), CapabilityStatus  VARCHAR(255), Target_Architecture_Date DATE, Applications_ID VARCHAR(255))
+
+
+CREATE LOCAL TEMPORARY TABLE #local_test_table_1(Capability  VARCHAR(255), CapabilityOwner  VARCHAR(255), CapabilityStatus  VARCHAR(255), Target_Architecture_Date DATE, Applications_ID VARCHAR(255))
+insert into #local_test_table_1 values('FD-B','Inactive','Inactive','2019-12-31', 'FD');
+insert into #local_test_table_1 values('FD-C','Inactive','Inactive','2019-12-31', 'FD');
+delete from #local_test_table_1
+select * from #local_test_table_1
+
+CREATE PROCEDURE "Common_Basis"."capability"(IN X varchar(255), IN Y tt_test) 
+LANGUAGE SQLSCRIPT AS
+BEGIN
+delete from "Common_Basis"."z_capabilities" where APPLICATIONS_ID = :X;
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) SELECT * FROM :Y;
+END;
+
+CALL capability ('FD', #local_test_table_1)
+
+
+delete from "Common_Basis"."z_capabilities" where APPLICATIONS_ID = 'FD';
+''''''''
