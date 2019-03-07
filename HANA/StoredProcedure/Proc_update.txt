@@ -1,0 +1,6 @@
+Create Procedure "Common_Basis"."Proc_update"(IN X Varchar(255), IN Y Varchar(255))
+LANGUAGE SQLSCRIPT AS
+BEGIN
+update "Common_Basis"."z_applications" set Executive_Summary = :X where APPLICATION_ID = 'MDG'; 
+update "Common_Basis"."z_event" set EVENT_DESC = :Y where APPLICATIONS_ID = 'MDG'; 
+END;

@@ -1,0 +1,6 @@
+CREATE PROCEDURE "Common_Basis"."project"(IN Y ss_test) 
+LANGUAGE SQLSCRIPT AS
+BEGIN
+delete from "Common_Basis"."z_projects";
+insert into "Common_Basis"."z_projects" (ID, project_desc, applications_id) SELECT * FROM :Y;
+END;

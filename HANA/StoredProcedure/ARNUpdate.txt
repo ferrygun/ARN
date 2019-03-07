@@ -1,0 +1,23 @@
+Create Procedure "Common_Basis"."ARNUpdate"(IN appid Varchar(45), IN pns Varchar(255), IN pnl Varchar(255), IN pnc Varchar(255), IN cid Varchar(45), IN lobid Varchar(45), IN htid Varchar(45), IN es Varchar(255), IN tuc Varchar(255), IN po Varchar(255), IN vid Varchar(45), IN ca Varchar(255), IN cv Varchar(255), IN eod Date, IN ta Varchar(255), IN tv Varchar(255), IN not Varchar(255), IN af Varchar(255))
+LANGUAGE SQLSCRIPT AS
+BEGIN
+update "Common_Basis"."z_applications" set 
+Product_Name_Short =:pns,
+Product_Name_Long=:pnl,
+Product_Name_Caption=:pnl,
+Category_ID=:cid,
+Line_of_Business_ID=:lobid,
+Hosting_Type_ID=:htid,
+Executive_Summary=:es,
+Target_Upgrade_Cycle=:tuc,
+Product_Owner=:po,
+Vendor_ID=:vid,
+Current_Architecture=:ca,
+Current_Version=:cv,
+Current_Version_End_of_Maintenance=:eod,
+Target_Architecture=:ta,
+Target_Version=:tv,
+Notes=:not,
+Application_Function=:af
+where APPLICATION_ID = :appid;
+END;

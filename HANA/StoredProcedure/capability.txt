@@ -1,0 +1,6 @@
+CREATE PROCEDURE "Common_Basis"."capability"(IN X varchar(255), IN Y tt_test) 
+LANGUAGE SQLSCRIPT AS
+BEGIN
+delete from "Common_Basis"."z_capabilities" where APPLICATIONS_ID = :X;
+insert into "Common_Basis"."z_capabilities" (capability, capabilityowner, capabilitystatus, target_architecture_date, applications_id) SELECT * FROM :Y;
+END;
