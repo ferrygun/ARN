@@ -1,0 +1,108 @@
+<!DOCTYPE HTML>
+<html>
+
+	<head>
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta charset="UTF-8">
+
+		<title>Application Roadmap Navigator</title>
+
+
+
+		<script>
+			var json = "{\"Results\":[{\"Name\":\"ALM\",\"Events\":{\"EVENTTYPE\":\"Upgrade\",\"STARTDATE\":\"2019-03-05\",\"ENDDATE\":\"2019-03-19\",\"EVENT_DESC\":\"Upgrade to this\"}},{\"Name\":\"DEL\",\"Events\":{\"EVENTTYPE\":\"Upgrade\",\"STARTDATE\":\"2019-03-08\",\"ENDDATE\":\"2020-03-26\",\"EVENT_DESC\":\"Upgrade to HANA\"}},{\"Name\":\"FD\",\"Events\":{\"EVENTTYPE\":\"Upgrade\",\"STARTDATE\":\"2019-03-05\",\"ENDDATE\":\"2019-03-06\",\"EVENT_DESC\":\"Upgrade this\"}},{\"Name\":\"MDG\",\"Events\":{\"EVENTTYPE\":\"Upgrade\",\"STARTDATE\":\"2019-05-08\",\"ENDDATE\":\"2019-05-29\",\"EVENT_DESC\":\"Upgrade to HANA\"}},{\"Name\":\"MDG\",\"Events\":{\"EVENTTYPE\":\"Upgrade\",\"STARTDATE\":\"2019-03-06\",\"ENDDATE\":\"2019-03-13\",\"EVENT_DESC\":\"Upgrade to MDG1.0\"}}]}";
+
+			
+			/*
+			const json1 = {
+				"id": "c2dec94f",
+				"data": [{
+						"field_template_id": 1,
+						"value": "111"
+					},
+					{
+						"field_template_id": 2,
+						"value": 222
+					},
+					{
+						"field_template_id": 3,
+						"value": [
+							333
+						]
+					},
+					{
+						"field_template_id": 2,
+						"value": 444
+					}
+				]
+			}
+
+			var data = JSON.parse(json);
+			data = data.Results;
+
+			let obj = {}
+			let arr = []
+			data.forEach(item => {
+				if (obj[item.Name]) {
+					arr.some((val, key) => {
+						const newItem = arr[key]
+						if (val.Name === item.Name) {
+							if (Array.isArray(newItem.Events) && Array.isArray(item.Events)) {
+								newItem.Events = newItem.value.concat(item.Events)
+							} else if (Array.isArray(newItem.Events)) {
+								newItem.Events.push(item.Events)
+							} else if (Array.isArray(item.Events)) {
+								item.Events.unshift(newItem.Events)
+							} else {
+								const result = []
+								result.push(newItem.Events)
+								result.push(item.Events)
+								newItem.Events = result
+							}
+							return true
+						} else {
+							return false
+						}
+					})
+				} else {
+					obj[item.Name] = true
+					arr.push(item)
+				}
+			})
+
+			const result = {
+				data: arr
+			}
+
+			console.log(result)
+
+			var data = JSON.parse(json);
+
+			console.log(data.Results);
+			*/
+
+			var obj = JSON.parse(json);
+
+			Object.keys(obj).forEach(k=>{
+				  obj[k] = obj[k].reduce((a,b)=>{
+					  var ind = a.map(i=>i.Name).indexOf(b.Name)
+					  if(ind > -1){
+						a[ind]['Events'].push(b['Events'])
+					  }else{
+					   ar=[];
+					   ar.push(b['Events'])
+					   b['Events'] = ar;
+					   a.push(b)
+					  }
+					 return a;
+				  },[])
+			});
+
+			console.log(obj);
+		</script>
+	</head>
+
+	<body class="sapUiBody" id="content">
+	</body>
+
+</html>

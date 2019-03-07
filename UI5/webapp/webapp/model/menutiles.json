@@ -1,0 +1,16 @@
+{
+  "TileCollection" : [
+    {
+      "image" : "images/menu1.png",
+      "contenttext" : "Application Portfolio",
+      "subheader" : "",
+      "footer": ""
+    },
+    {
+      "image" : "images/menu2.png",
+      "contenttext" : "Project",
+      "subheader" : "",
+      "footer": ""
+    }
+  ]
+}

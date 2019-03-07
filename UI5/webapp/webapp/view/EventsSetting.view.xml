@@ -1,0 +1,44 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="ARN.ARN.controller.EventsSetting" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Page showHeader="true" title="Events" showFooter="true" showNavButton="true" navButtonPress="doNavBack">
+        <content>
+            <Table id="events" mode="SingleSelectMaster" selectionChange="onSelectionChange" items="{/Event}" class="TableStyle">
+                <headerToolbar>
+                    <Toolbar>
+                        <ToolbarSpacer />
+                        <Button text="Insert Item" type="Emphasized" press="onInsert" />
+                        <Button text="Edit Item" type="Emphasized" press="onEdit" />
+                        <Button text="Save Item" type="Emphasized" press="onSave" />
+                        <Button text="Delete Item" type="Reject" press="onDelete" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Label text="Event Type" />
+                    </Column>
+                    <Column>
+                        <Label text="Start Date" />
+                    </Column>
+                    <Column>
+                        <Label text="End Date" />
+                    </Column>
+                    <Column>
+                        <Label text="Description" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Input value="{EVENTTYPE}" editable="false" class="InputStyle" />
+                            <DatePicker id="startdate" value="{path: 'STARTDATE', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium', source: {pattern: 'yyyy/MM/dd'} }}" width="auto" editable="false" displayFormat="medium" enabled="true" visible="true" valueFormat="MM-dd-yyyy"/>
+							<DatePicker id="enddate" value="{path: 'ENDDATE', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium', source: {pattern: 'yyyy/MM/dd'} }}" width="auto" editable="false" displayFormat="medium" enabled="true" visible="true" valueFormat="MM-dd-yyyy"/>
+							 <Input value="{EVENT_DESC}" editable="false" class="InputStyle"/>
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <headerContent />
+        <subHeader />
+        <customHeader />
+    </Page>
+</mvc:View>

@@ -1,0 +1,219 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="ARN.ARN.controller.EditApp" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Page showHeader="true" title="Edit Application" showFooter="true" showNavButton="true" navButtonPress="doNavBack">
+        <content>
+            <form:Form width="100%" editable="true" visible="true">
+                <form:title>
+                    <core:Title text="Edit Application" level="Auto"/>
+                </form:title>
+                <form:formContainers>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+							 <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Application ID" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+									<Text text="{path: '/Summary/0/APPLICATION_ID'}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Product Name (Short)" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="product_name_short" value="{/Summary/0/PRODUCT_NAME_SHORT}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0"  change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Product Name (Long)" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="product_name_long" value="{/Summary/0/PRODUCT_NAME_LONG}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Product Name (Caption)" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="product_name_caption" value="{/Summary/0/PRODUCT_NAME_CAPTION}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Category" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+									<Select id="selectCategory" width="auto" change="" autoAdjustWidth="true" items="{/}">
+                                        <core:Item key="{ID}" text="{CATEGORY_DESC}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Line of Business" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+									<Select id="selectLOB" width="auto" change="" autoAdjustWidth="true" items="{/}">
+                                        <core:Item key="{ID}" text="{LINEOFBUSINESS_DESC}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Hosting Type" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+									<Select id="selectHostingType" width="auto" change="" autoAdjustWidth="true" items="{/}">
+                                        <core:Item key="{ID}" text="{HOSTINGTYPE_DESC}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Executive Summary" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="executive_summary" value="{/Summary/0/EXECUTIVE_SUMMARY}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+						<form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Target Upgrade Cycle" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="target_upgrade_cycle"  value="{/Summary/0/TARGET_UPGRADE_CYCLE}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                        <form:title/>
+                    </form:FormContainer>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Product Owner" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="product_owner" value="{/Summary/0/PRODUCT_OWNER}" placeholder="Last, First" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Vendor" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+									<Select id="selectVendor" width="auto" change="" autoAdjustWidth="true" items="{/}">
+                                        <core:Item key="{ID}" text="{VENDOR_DESC}" />
+                                    </Select>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Current Architecture" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="current_architecture" value="{/Summary/0/CURRENT_ARCHITECTURE}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Current Version" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="current_version" value="{/Summary/0/CURRENT_VERSION}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="End of Maintenance" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <DatePicker id="end_of_maintenance_date" value="{path: '/Summary/0/CURRENT_VERSION_END_OF_MAINTENANCE', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium', source: {pattern: 'yyyy/MM/dd'} }}" width="auto" displayFormat="medium" enabled="true" visible="true" valueFormat="MM-dd-yyyy" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                    <form:FormContainer visible="true">
+                        <form:formElements>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Last Arch. Review" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Text text="{path: '/Summary/0/LAST_ARCHITECTURE_REVIEW_DATE', type: 'sap.ui.model.type.Date', formatOptions: {style: 'medium', source: {pattern: 'yyyy/MM/dd'} }}" width="auto" maxLines="1" wrapping="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Target Architecture" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="target_architecture" value="{/Summary/0/TARGET_ARCHITECTURE}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Target Version" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="target_version" value="{/Summary/0/TARGET_VERSION}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                            <form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Notes" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="notes" value="{/Summary/0/NOTES}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+							<form:FormElement visible="true">
+                                <form:label>
+                                    <Label text="Application Function" design="Standard" width="100%" required="false" textAlign="Begin" textDirection="Inherit" visible="true"/>
+                                </form:label>
+                                <form:fields>
+                                    <Input id="application_function" value="{/Summary/0/APPLICATION_FUNCTION}" type="Text" showValueHelp="false" enabled="true" visible="true" width="auto" valueHelpOnly="false" maxLength="0" change="handleDetailsChange"/>
+                                </form:fields>
+                            </form:FormElement>
+                        </form:formElements>
+                        <form:title/>
+                    </form:FormContainer>
+                </form:formContainers>
+                <form:layout>
+                    <form:ResponsiveGridLayout adjustLabelSpan="false" columnsL="2" labelSpanL="3" columnsM="1" labelSpanM="2" labelSpanS="12"/>
+                </form:layout>
+            </form:Form>
+        </content>
+        <footer>
+            <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                <content>
+                    <ToolbarSpacer width=""/>
+                    <Button id="OKButton" text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onSave"/>
+                    <Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false" press="onCancel"/>
+                </content>
+            </OverflowToolbar>
+        </footer>
+        <headerContent/>
+        <subHeader/>
+        <customHeader/>
+    </Page>
+</mvc:View>

@@ -1,0 +1,35 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="ARN.ARN.controller.AppPOR" xmlns="sap.m" xmlns:unified="sap.ui.unified">
+    <Page showHeader="true" title="Application Plan of Record" showFooter="true" showNavButton="false">
+        <content>
+            <Breadcrumbs currentLocationText="Application Plan of Record">
+                <links>
+                    <Link href="" text="Portfolio" textAlign="Begin" width="auto" target="_self" wrapping="false" enabled="true" visible="true" emphasized="false" subtle="false" press="onNavPortfolio"/>
+                </links>
+            </Breadcrumbs>
+            <PlanningCalendar id="por" width="auto" startDate="{/startDate}" noDataText="No data" singleSelection="true" appointmentsVisualization="Filled" appointmentsReducedHeight="false" showRowHeaders="true" showWeekNumbers="true" showDayNamesLine="false" visible="true" showIntervalHeaders="false" rows="{path:'/modelData/0/Results', templateShareable:true}">
+                <toolbarContent>
+                    <Title text="Application Plan of Record" titleStyle="H2" width="auto" textAlign="Begin" visible="true" wrapping="false"/>
+                </toolbarContent>
+                <rows>
+                    <PlanningCalendarRow title="{PDS}" appointments="{path : 'Events', templateShareable: 'true'}" text="{Product_Name_Caption}" icon="/build/uilibraries/content/static/person-picture.jpg" selected="false">
+                        <appointments>
+                            <unified:CalendarAppointment id="capor" title="{EVENT_DESC}" text="{EVENTTYPE}" icon="sap-icon://family-care" startDate="{path: 'STARTDATE', formatter: 'ARN.ARN.controller.Formatter.DateFormat'}" endDate="{path: 'ENDDATE', formatter: 'ARN.ARN.controller.Formatter.DateFormat'}" type="Type19" selected="false" tentative="false"/>
+                        </appointments>
+                    </PlanningCalendarRow>
+                </rows>
+            </PlanningCalendar>
+        </content>
+        <footer>
+            <OverflowToolbar width="100%" height="46px" design="Auto" enabled="true" visible="true">
+                <content>
+                    <ToolbarSpacer width=""/>
+                    <Button text="Save" type="Emphasized" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                    <Button text="Cancel" type="Default" iconFirst="true" width="auto" enabled="true" visible="true" iconDensityAware="false"/>
+                </content>
+            </OverflowToolbar>
+        </footer>
+        <headerContent/>
+        <subHeader/>
+        <customHeader/>
+    </Page>
+</mvc:View>

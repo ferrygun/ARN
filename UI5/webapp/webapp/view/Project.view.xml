@@ -1,0 +1,40 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" controllerName="ARN.ARN.controller.Project" xmlns="sap.m" xmlns:form="sap.ui.layout.form" xmlns:core="sap.ui.core">
+    <Page showHeader="true" title="Projects" showFooter="true" showNavButton="true" navButtonPress="doNavBack">
+        <content>
+            <Table id="projects" mode="SingleSelectMaster" selectionChange="onSelectionChange" items="{/}" class="TableStyle">
+                <headerToolbar>
+                    <Toolbar>
+                        <ToolbarSpacer />
+                        <Button text="Insert Item" type="Emphasized" press="onInsert" />
+                        <Button text="Edit Item" type="Emphasized" press="onEdit" />
+                        <Button id="OKButton" text="Save Item" type="Emphasized" press="onSave" />
+                        <Button text="Delete Item" type="Reject" press="onDelete" />
+                    </Toolbar>
+                </headerToolbar>
+                <columns>
+                    <Column>
+                        <Label text="ID" />
+                    </Column>
+                    <Column>
+                        <Label text="Project Description" />
+                    </Column>
+                    <Column>
+                        <Label text="Application ID" />
+                    </Column>
+                </columns>
+                <items>
+                    <ColumnListItem>
+                        <cells>
+                            <Input value="{ID}" editable="false" class="InputStyle" />
+                            <Input value="{PROJECT_DESC}" editable="false" class="InputStyle" />
+                            <Input value="{APPLICATIONS_ID}" editable="false" class="InputStyle" />
+                        </cells>
+                    </ColumnListItem>
+                </items>
+            </Table>
+        </content>
+        <headerContent />
+        <subHeader />
+        <customHeader />
+    </Page>
+</mvc:View>
